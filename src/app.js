@@ -32,7 +32,7 @@ if(NODE_ENV !== 'production') {
 let bookmarks = [
 	{
 		id: '1',
-		name: 'Google',
+		title: 'Google',
 		url: 'https://www.google.com',
 		rating: 5,
 		description: 'The ultimate search engine'
@@ -70,10 +70,10 @@ app.get('/bookmarks/:bookmarkId', (req, res) => {
 })
 
 app.post('/bookmarks', (req, res) => {
-	const { name, url, rating, description } = req.body;
-	if(!name) {
+	const { title, url, rating, description } = req.body;
+	if(!title) {
 		return res.status(401).json({
-			error: 'name is required'
+			error: 'title is required'
 		})
 	}
 	if(!url) {
@@ -93,10 +93,10 @@ app.post('/bookmarks', (req, res) => {
 	}
 	const bookmark = {
 		id: uuid(),
-		name: name,
-		url: url,
+		title,
+		url,
 		rating: parseInt(rating),
-		description: description
+		description
 	};
 	bookmarks.push(bookmark);
 	return res.status(200).json(bookmark);
